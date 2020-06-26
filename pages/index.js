@@ -1,63 +1,48 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import MISSION_QUERY from "../graphql/mision_query";
+import { initializeApollo } from "../client/apollo";
 
-const Home = () => (
-  <div className="container">
-    <Head>
-      <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+const Home = (props) => {
+  const { loading, error, data } = props;
 
-    <main>
-      <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
-      <p className="description">
-        Get started by editing <code>pages/index.js</code>
-      </p>
+  console.log(error);
 
-      <div className="grid">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+  if (error) {
+    return <h1>Error fetching data!</h1>;
+  }
 
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Learn &rarr;</h3>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
-        </a>
+  console.log(data);
+  const { missions } = props.data;
 
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
-        </a>
+  return (
+    <div className="container">
+      <Head>
+        <title>MISSIONS</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-        <a
-          href="https://vercel.com/new?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className="card"
-        >
-          <h3>Deploy &rarr;</h3>
-          <p>
-            Instantly deploy your Next.js site to a public URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <main>
+        <h1 className="title">
+          SPACEX MISSIONS
+        </h1>
 
-    <footer>
-      <a
-        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Powered by <img src="/vercel.svg" alt="Vercel Logo" />
-      </a>
-    </footer>
+        <div className="grid">
+          {missions.map((mission) => (
+            <a href={mission.website} className="card" key={mission.id}>
+              <h3>{mission.name}</h3>
+              <p>{mission.description}</p>
+            </a>
+          ))}
 
-    <style jsx>{`
+        </div>
+      </main>
+
+
+      <style jsx>{`
       .container {
         min-height: 100vh;
         padding: 0 0.5rem;
@@ -184,7 +169,7 @@ const Home = () => (
       }
     `}</style>
 
-    <style jsx global>{`
+      <style jsx global>{`
       html,
       body {
         padding: 0;
@@ -197,7 +182,24 @@ const Home = () => (
         box-sizing: border-box;
       }
     `}</style>
-  </div>
-)
+    </div>
+  )
+}
+
+export async function getStaticProps() {
+  const apolloClient = initializeApollo();
+
+  const { data } = await apolloClient.query({
+    query: MISSION_QUERY
+  })
+
+  return {
+    props: {
+      data,
+    },
+    unstable_revalidate: 1,
+  }
+}
+
 
 export default Home
