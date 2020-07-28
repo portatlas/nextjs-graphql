@@ -12,18 +12,15 @@ describe('Encrypt', () => {
             expect(val).toEqual("B");
         });
 
-        it('shifts the string "Brazil" to "CSBAJM" if the key is 1', () => {
-            const val = encrypt.caesarCipher("Brazil", 1);
-            expect(val).toEqual("CSBAJM");
+        // Exercise 1: As a warm up excercise write a test for a more complex string
+        // Unit tests is a documentation of how your code works
+        // Additionally, writing unit tests allow you to test out corner cases
+        // As your write out some more tests for the caesarCipher want are some of the limitions
+        // for this current implementation
+        xit('test a more complex string', () => {
         });
 
-        it('throws an error if key is not a number', () => {
-            expect(() => { encrypt.caesarCipher("a", "b") }).toThrowError();
+        xit('throws an error if key is not a number', () => {
         })
     });
-
-    // Assignment 1: the encryption does not handle small case letters 
-    // write a test to check encryption works for small case letters
-    // for example "a" should be converted to "b" if the offset key is 1
-    // once you have a failing test update the code to get the tests to pass
 });
