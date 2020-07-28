@@ -69,7 +69,8 @@ describe('Home Page', () => {
         });
 
         // Assignment 3: The below unit test checks the behavior when a user submits the encryption form
-        // However, this test may be brittle because it is is required to know how the caesarCipher works
+        // However, there are a few things that can be improved with this tests.
+        // There are multiple assertions and the test may be brittle because it is is required to know how the caesarCipher works
         // If valid business logic changes (ie new encryption method) this test will break
         // Additionally, the logic for caesarCipher should be tested as its own unit
         // Refactor this test so we can mock out the encrypt class and only test for the display logic
@@ -84,11 +85,8 @@ describe('Home Page', () => {
 
                 await new Promise(resolve => setTimeout(resolve, 0));
 
-                const country = getByTestId("countryInput");
-                expect(country.value).toBe("FOOLAND");
                 const offsetKey = getByTestId("offsetKey");
                 fireEvent.change(offsetKey, { target: { value: 2 } });
-                expect(offsetKey.value).toBe("2");
 
                 fireEvent.click(getByTestId('button'));
                 await waitForNextUpdate;
