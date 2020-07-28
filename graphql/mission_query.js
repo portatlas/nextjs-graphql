@@ -13,7 +13,6 @@ const MISSIONS_QUERY = gql`
     wikipedia
   }
 }
-
 `;
 
 export default MISSIONS_QUERY;
