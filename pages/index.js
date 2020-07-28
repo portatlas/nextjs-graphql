@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import MISSION_QUERY from "../graphql/mision_query";
+import MISSION_QUERY from '../graphql/mission_query';
 import { initializeApollo } from "../client/apollo";
 
 const Home = (props) => {
@@ -197,7 +197,7 @@ export async function getStaticProps() {
     props: {
       data,
     },
-    unstable_revalidate: 1,
+    revalidate: 1,
   }
 }
 
