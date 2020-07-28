@@ -37,14 +37,14 @@ const Home = () => {
         <div >
           <h1>Caesar Cipher Encrypt</h1>
           <h2>Encrypt the below message with a Caesar Cipher by passing a key to offset the value</h2>
-          <h3>ie. a key of 1 will offset "Brazil" to "CSBAJM" </h3>
+          <h3>ie. a key of 1 will offset "BRAZIL" to "CSBAJM" </h3>
           <form
             onSubmit={handleSubmit}>
             <label>Country: </label>
             <input
               data-testid="countryInput"
               name="country"
-              value={data.country.name}
+              value={data.country.name.toUpperCase()}
               readOnly={true}
               disabled={true}>
             </input>

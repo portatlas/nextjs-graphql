@@ -64,7 +64,7 @@ describe('Home Page', () => {
                 await new Promise(resolve => setTimeout(resolve, 0));
 
                 const country = getByTestId("countryInput");
-                expect(country.value).toBe("Fooland");
+                expect(country.value).toBe("FOOLAND");
             })
         });
 
@@ -85,7 +85,7 @@ describe('Home Page', () => {
                 await new Promise(resolve => setTimeout(resolve, 0));
 
                 const country = getByTestId("countryInput");
-                expect(country.value).toBe("Fooland");
+                expect(country.value).toBe("FOOLAND");
                 const offsetKey = getByTestId("offsetKey");
                 fireEvent.change(offsetKey, { target: { value: 2 } });
                 expect(offsetKey.value).toBe("2");
@@ -99,6 +99,6 @@ describe('Home Page', () => {
         });
 
         // Assignment 4: There is a bug with the form as there is no input validation on the offset key. 
-        // Write the test and corresponding code to bad input
+        // Write the test and corresponding code to validate bad input and show a user a message
     });
 });
