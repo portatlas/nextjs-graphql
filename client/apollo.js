@@ -1,7 +1,6 @@
-const URI = "https://countries.trevorblades.com/";
-
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import fetch from 'node-fetch'
+const URI = "https://countries.trevorblades.com/";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -11,4 +10,5 @@ const client = new ApolloClient({
     useGETForQueries: true
   })
 });
+
 export default client;
