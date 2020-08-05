@@ -17,10 +17,13 @@ describe('Encrypt', () => {
         // Additionally, writing unit tests allow you to test out corner cases
         // As your write out some more tests for the caesarCipher want are some of the limitions
         // for this current implementation
-        xit('test a more complex string', () => {
+        it('shifts the entire alphabet and uppercases', () => {
+            const val = encrypt.caesarCipher("zabcdefghijkl", 1);
+            expect(val).toEqual("ABCDEFGHIJKLM");
         });
 
-        xit('throws an error if key is not a number', () => {
-        })
+        it('throws an error if key is not a number', () => {
+            expect(() => encrypt.caesarCipher("zabcdefghijkl", "a")).toThrowError();
+        });
     });
 });

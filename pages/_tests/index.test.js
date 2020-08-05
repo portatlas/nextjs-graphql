@@ -1,37 +1,48 @@
 import { MockedProvider } from '@apollo/client/testing';
 import Home from '../index';
 import COUNTRY_QUERY from '../../graphql/country_query';
-import { renderHook } from '@testing-library/react-hooks';
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom/extend-expect';
+import { screen } from '@testing-library/dom'
 import { render, act, fireEvent } from '@testing-library/react'
 
 describe('Home Page', () => {
-    describe('error state', () => {
-        it('should render the error state if an error is thrown', async () => {
-            const mockError = {
-                request: {
-                    query: COUNTRY_QUERY,
-                },
-                error: () => { throw new Error('some error occured') },
-            };
+    // describe('error state', () => {
+    //     it('should render the error state if an error is thrown', async () => {
+    //         const mockError = {
+    //             request: {
+    //                 query: COUNTRY_QUERY,
+    //             },
+    //             error: () => { throw new Error('some error occured') },
+    //         };
 
-            const { getByText } = render(
-                <MockedProvider mocks={[mockError]} addTypename={false}>
+    //         const { getByText } = render(
+    //             <MockedProvider mocks={[mockError]} addTypename={false}>
+    //                 <Home />
+    //             </MockedProvider>,
+    //         );
+
+
+    //         await act(async () => {
+    //             await new Promise(resolve => setTimeout(resolve, 0));
+    //             const error = getByText('Error fetching data!');
+    //             expect(error).toBeInTheDocument();
+    //         })
+    //     });
+    // });
+
+    describe('loading state', () => {
+        // Assignment 2: How to mock a loading state with the MockedProvider and test the loading messaage is rendered
+        it.only('should render the loading message if in a loading state', async () => {
+            const { getByTestId } = render(
+                <MockedProvider mocks={[]}>
                     <Home />
                 </MockedProvider>,
             );
 
             await act(async () => {
-                await new Promise(resolve => setTimeout(resolve, 0));
-                const error = getByText('Error fetching data!');
+                const error = getByTestId('loading');
                 expect(error).toBeInTheDocument();
             })
-        });
-    });
-
-    describe('loading state', () => {
-        // Assignment 2: How to mock a loading state with the MockedProvider and test the loading messaage is rendered
-        xit('should render the loading message if in a loading state', async () => {
         });
     });
 
@@ -54,7 +65,6 @@ describe('Home Page', () => {
 
         it('renders the country data from graphql if it exists', async () => {
             await act(async () => {
-
                 const { getByTestId } = render(
                     <MockedProvider mocks={[mock]} addTypename={false}>
                         <Home />
@@ -76,7 +86,6 @@ describe('Home Page', () => {
         // Refactor this test so we can mock out the encrypt class and only test for the display logic
         it('renders the encrypted value if the form is submited', async () => {
             await act(async () => {
-                const { waitForNextUpdate } = renderHook(() => useState());
                 const { getByTestId, getByText } = render(
                     <MockedProvider mocks={[mock]} addTypename={false}>
                         <Home />
@@ -89,7 +98,6 @@ describe('Home Page', () => {
                 fireEvent.change(offsetKey, { target: { value: 2 } });
 
                 fireEvent.click(getByTestId('button'));
-                await waitForNextUpdate;
 
                 const encrypted = getByText(/HQQNCPF/i);
                 expect(encrypted).toBeInTheDocument();

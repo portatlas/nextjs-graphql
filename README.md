@@ -25,7 +25,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 2. Structure of A Unit Test
    - Given, When, Then
    - Arrange, Act, Assert
-   - They should be independent and testing should be targeted to smallest unit of your
+   - They should be independent and testing should be targeted to smallest unit of your code
 3. If something is hard to test then that could be a code smell
    - Can the code be refactored to adhere to the Single Responsibility Principle
    - Are the abstractions correct
