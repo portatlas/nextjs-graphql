@@ -22,8 +22,12 @@ const Home = () => {
     e.preventDefault();
     const str = data.country.name;
     const key = parseInt(e.target.elements.key.value);
-    const value = encrypt.caesarCipher(str, key);
-    setMessage(`The encrypted message is: ${value}`);
+    if (isNaN(key)) {
+      setMessage(`key must be an integer`);
+    } else {
+      const value = encrypt.caesarCipher(str, key);
+      setMessage(`The encrypted message is: ${value}`);
+    }
   };
 
   return (
